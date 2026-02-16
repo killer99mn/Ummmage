@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Launcher</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      padding: 16px 24px;
+      background: #181818;
+      border-bottom: 1px solid #333;
+      font-size: 18px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+      padding: 16px;
+    }
+    .item {
+      background: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid #333;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+    }
+    .thumb {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      display: block;
+    }
+    .label {
+      padding: 8px 10px;
+      font-size: 12px;
+      direction: ltr;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    لانچر تصاویر
+  </header>
+
+  <div class="grid" id="grid"></div>
+
+  <script>
+    // اینجا لیست عکس‌ها رو تعریف می‌کنی
+    const images = [
+      "images/1.jpg",
+      "images/2.png",
+      "images/wallpaper01.jpg",
+      "images/wallpaper02.jpg"
+      // هر چی عکس داری اینجا اضافه کن
+    ];
+
+    const grid = document.getElementById("grid");
+
+    images.forEach(path => {
+      const fileName = path.split("/").pop();
+
+      const item = document.createElement("div");
+      item.className = "item";
+
+      const img = document.createElement("img");
+      img.className = "thumb";
+      img.src = path;
+      img.alt = fileName;
+
+      const label = document.createElement("div");
+      label.className = "label";
+      label.textContent = fileName;
+
+      item.appendChild(img);
+      item.appendChild(label);
+
+      // کلیک روی هر آیتم → باز شدن عکس در تب جدید
+      item.addEventListener("click", () => {
+        window.open(path, "_blank");
+      });
+
+      grid.appendChild(item);
+    });
+  </script>
+</body>
+</html>
